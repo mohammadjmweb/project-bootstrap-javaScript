@@ -301,5 +301,123 @@
           </div>
       </footer>
     </div>
+
+    <script src="bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script> 
+        var carts=Array.from(document.querySelectorAll('.carts'))
+        
+        var btn1=document.querySelector('.btn1')
+        var btn2=document.querySelector('.btn2')
+        var btn3=document.querySelector('.btn3')
+        var btn4=document.querySelector('.btn4')
+        var seeAll=document.querySelector('.see-all')
+
+        if(btn1.classList.contains('disabled')){
+            carts.slice(0,4).forEach(cart=>{
+                cart.classList.add('d-flex')
+                cart.classList.remove('d-none')
+            })
+            carts.slice(4,16).forEach(cart=>{
+                cart.classList.add('d-none')
+                cart.classList.remove('d-flex')
+            })
+        }
+        btn1.addEventListener('click',function(){
+            btn1.classList.add('disabled')
+            btn2.classList.remove('disabled')
+            btn3.classList.remove('disabled')
+            btn4.classList.remove('disabled')
+            carts.slice(0,4).forEach(cart=>{
+                cart.classList.add('d-flex')
+                cart.classList.remove('d-none')
+            })
+            carts.slice(4,16).forEach(cart=>{
+                cart.classList.add('d-none')
+                cart.classList.remove('d-flex')
+            })
+        })
+        btn2.addEventListener('click',function(){
+            btn1.classList.remove('disabled')
+            btn2.classList.add('disabled')
+            btn3.classList.remove('disabled')
+            btn4.classList.remove('disabled')
+            carts.slice(0,4).forEach(cart=>{
+                cart.classList.add('d-none')
+                cart.classList.remove('d-flex')
+            })
+            carts.slice(4,8).forEach(cart=>{
+                cart.classList.add('d-flex')
+                cart.classList.remove('d-none')
+            })
+            carts.slice(8,16).forEach(cart=>{
+                cart.classList.add('d-none')
+                cart.classList.remove('d-flex')
+            })
+        })
+        btn3.addEventListener('click',function(){
+            btn1.classList.remove('disabled')
+            btn2.classList.remove('disabled')
+            btn3.classList.add('disabled')
+            btn4.classList.remove('disabled')
+            carts.slice(0,8).forEach(cart=>{
+                cart.classList.add('d-none')
+                cart.classList.remove('d-flex')
+            })
+            carts.slice(8,12).forEach(cart=>{
+                cart.classList.add('d-flex')
+                cart.classList.remove('d-none')
+            })
+            carts.slice(12,16).forEach(cart=>{
+                cart.classList.add('d-none')
+                cart.classList.remove('d-flex')
+            })
+        })
+        btn4.addEventListener('click',function(){
+            btn1.classList.remove('disabled')
+            btn2.classList.remove('disabled')
+            btn3.classList.remove('disabled')
+            btn4.classList.add('disabled')
+            carts.slice(0,12).forEach(cart=>{
+                cart.classList.add('d-none')
+                cart.classList.remove('d-flex')
+            })
+            carts.slice(12,16).forEach(cart=>{
+                cart.classList.add('d-flex')
+                cart.classList.remove('d-none')
+            })
+        }) 
+        seeAll.addEventListener('click',function(){
+            btn1.classList.remove('disabled')
+            btn2.classList.remove('disabled')
+            btn3.classList.remove('disabled')
+            btn4.classList.remove('disabled')
+            carts.slice(0,16).forEach(cart=>{
+                cart.classList.add('d-flex')
+                cart.classList.remove('d-none')
+            })
+        })   
+        let comments=document.querySelector('.comments')
+        let xhr=new XMLHttpRequest()
+        xhr.open('Get','https://jsonplaceholder.typicode.com/posts',true)
+        xhr.onload=function(){
+            if(this.status===200){
+                let result=JSON.parse(this.response).slice(0,4)
+                console.log(result)
+
+                result.forEach(item=>{
+                    let div=document.createElement('div')
+                    div.classList.add('p-3','col-12','col-md-6')
+                    div.innerHTML = `
+                        <div class=" border border-2 border-dark rounded-4 d-flex h-100 ">
+                            <img src="1.png" class="w-25 rounded-circle m-2" alt="">
+                            <h6 class="w-75 text-justify px-3 py-1 my-auto ">${item.body}</h6>
+                        </div>
+                    `
+                    comments.appendChild(div)
+                })
+            }
+        }
+        xhr.send()   
+    </script>
 </body>
 </html>
